@@ -133,8 +133,8 @@ def cross_entropy_policy(cur_bandwidth, num_sec_in_buffer, prev_quality_level, n
 
     # this will be 6-ish to start out
     candidate_points = []
-    for quality in list[constants.QUALITY_LEVELS.values()]:
-        for loc in list[constants.LOCATIONS_CO2_DICT.values()]:
+    for quality in list(constants.QUALITY_LEVELS.values()):
+        for loc in list(constants.LOCATIONS_CO2_DICT.keys()):
             candidate_points.append((quality,loc))
 
     # start out with uniform probabilities, then all of the weights add to one with the division 
@@ -145,12 +145,11 @@ def cross_entropy_policy(cur_bandwidth, num_sec_in_buffer, prev_quality_level, n
 
         # sample candidate indices with current probabilities (this is the "samples = rand(P, m)" line in julia)
         indices = np.random.choice(len(candidate_points), size=SAMPLE_SIZE_M, p=prob_weights)
-        sampled = [candidate_points[i] for i in indices] # todo fix this
+        sampled = [candidate_points[i] for i in indices] 
 
         # score each sampled candidate (sorta same as the "sortperm([f(samples[:,i]) for i in 1:m])" line)
         scored = []
         for curr_quality, curr_loc in sampled:
-            # todo fix this line
 
             # figure out possible jitter risk to later put in 
             segment_size_MB = curr_quality * constants.N_SECONDS_PER_SEGMENT
@@ -160,7 +159,7 @@ def cross_entropy_policy(cur_bandwidth, num_sec_in_buffer, prev_quality_level, n
             jitter_risk = 0
             if num_sec_in_buffer < time_to_download_s:
                 jitter_risk = JITTER_RISK
-
+            
             # then calculate the score with current jitter risk, CO2, etc
             score = ( # we want the overall score to be minimized 
                 -w_quality * curr_quality +         # maximize quality (so we make this negative)
@@ -202,9 +201,9 @@ def cross_entropy_policy(cur_bandwidth, num_sec_in_buffer, prev_quality_level, n
 
     # then we do our final pick: most probable candidate
     best_index = np.argmax(prob_weights) # get the index corresponding to the best score
-    best_quality, best_location = candidate_points[best_index]
+    best_quality, best_loc = candidate_points[best_index]
 
-    return best_quality, best_location
+    return best_quality, best_loc
 
 
 

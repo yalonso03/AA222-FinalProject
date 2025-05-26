@@ -11,7 +11,7 @@ import constants
 import policies
 
 # testing! 20 segments with a random policy
-simulator = NetworkSimulator(20, policies.random_policy)
+simulator = NetworkSimulator(20, policies.cross_entropy_policy)
 res = simulator.simulate()  # returns SimulationResult object
 print(res.average_quality)
 print(res.quality_history)
