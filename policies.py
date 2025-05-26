@@ -41,7 +41,7 @@ def simple_quality_policy(cur_bandwidth, num_sec_in_buffer, prev_quality_level, 
     
     """
 
-    best_qual = None
+    best_qual = list(constants.QUALITY_LEVELS.values())[0]
     
     for i in range(len(constants.QUALITY_LEVELS)):
 
