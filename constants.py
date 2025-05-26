@@ -6,7 +6,10 @@ For: AA222 (Engineering Design Optimization) Final Project
 Some commonly used constants
 """
 
-N_SECONDS_PER_SEGMENT = 2  #length of each chunk
+#TODO @KATE all of these constants are bullshit values. None of them are legitimate -- we need to do research to inform what would
+# be a good realistic value to set them to 
+
+N_SECONDS_PER_SEGMENT = 2  #length of each chunk, in seconds
 
 # Tons (?) of CO2 per _____ ? need to figure it out 
 LOCATIONS_CO2_DICT = {
@@ -23,3 +26,11 @@ QUALITY_LEVELS = {
     "HIGH" : 1.0
 }
 
+# Maximum size of the elastic buffer, in MB
+BUFFER_CAPACITY = 20  #TODO NOT SURE WHAT SIZES ARE NORMAL
+
+COST_PER_MB = 0.01 
+
+# Used to simulate noise at each timestep
+NETWORK_THROUGHPUT_MEAN = 50
+NETWORK_THROUGHPUT_STD = 10
