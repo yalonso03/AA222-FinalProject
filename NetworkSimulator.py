@@ -15,6 +15,21 @@ from SimulationResult import SimulationResult
 # ----------------------------------------------
 
 
+"""
+Kate recap notes (can delete)
+
+- class for simulating a network, takes in number of segments (2 second long clips) to be sent for the whole movie (aka like a movie could be divided into 100 2 second clips). 
+    - we also pass in a functio nthat returns the next QUALITY level to use (we will us the optimization strats to figure this out)
+
+- the init sets up everything mostly set to zero but then a current bandwidth that flucates (do guass for mean/std)
+
+- in simulate, we take the results from our policy and calculate what made it change
+    - using quality, we then figure out if the time to download had the buffer drain in the meantime. if so, we add to the times we needed to buffer/jitter
+
+
+"""
+
+
 class NetworkSimulator:
     def __init__(self, n_segments, policy):
         """Initializes the NetworkSimulator class 
@@ -42,6 +57,7 @@ class NetworkSimulator:
 
             # query our policy (one of the functions defined in policies.py) 
             quality, server_loc = self._policy(self._cur_bandwidth, self._num_sec_in_buffer, self._prev_quality_level, self._n_rebuffers)
+
             # quality of the segment is in units of Megabytes per sec
             # seconds per segment is in units of sec
             # determine the size of the segment in megabytes
@@ -61,7 +77,7 @@ class NetworkSimulator:
             self._num_sec_in_buffer = min(self._num_sec_in_buffer + constants.N_SECONDS_PER_SEGMENT, constants.BUFFER_CAPACITY)
             self._carbon_emitted += constants.LOCATIONS_CO2_DICT[server_loc] * segment_size_MB  #increment total co2 emitted
             self._total_cost += segment_size_MB * constants.COST_PER_MB  #increment total cost
-            self._quality_history.append(quality)
+            self._quality_history.append(quality)  # keep track of previous qualities
             self._prev_quality_level = quality
 
         avg_quality = sum(self._quality_history) / len(self._quality_history)

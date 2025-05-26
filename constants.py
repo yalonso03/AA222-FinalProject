@@ -20,6 +20,7 @@ LOCATIONS_CO2_DICT = {
 
 
 # Can add more, I think TY said they realistically use 7-8
+# TODO explain why we kept these as not real numbers --> TY and netflix have a predefined set but this could be a possible extension to our work
 QUALITY_LEVELS = {
     "LOW" : 0.3,  # 0.3 MB/sec
     "MEDIUM" : 0.5,
