@@ -23,7 +23,9 @@ LOCATIONS_CO2_DICT = {
 # TODO explain why we kept these as not real numbers --> TY and netflix have a predefined set but this could be a possible extension to our work
 QUALITY_LEVELS = {
     "LOW" : 0.3,  # 0.3 MB/sec
+    "LOW-MED" : 0.4,
     "MEDIUM" : 0.5,
+    "MED-HIGH" : 0.7,
     "HIGH" : 1.0
 }
 
@@ -35,3 +37,6 @@ COST_PER_MB = 0.01
 # Used to simulate noise at each timestep
 NETWORK_THROUGHPUT_MEAN = 50
 NETWORK_THROUGHPUT_STD = 10
+
+# Number of video segments used for simulations
+N_SEGMENTS = 20
