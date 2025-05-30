@@ -13,6 +13,7 @@ import matplotlib.pyplot as plt
 from collections import Counter, defaultdict
 import numpy as np
 
+# todo I’m not sure how u did the simulation runs, but we should make sure that the network bandwidth at each time step is the same 
 
 
 # use this dictionary to loop through the multiple plotting
