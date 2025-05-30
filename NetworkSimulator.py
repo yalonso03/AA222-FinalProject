@@ -10,10 +10,6 @@ import policies
 import constants  # defines constants that are used across multiple files, eg quality levels, server locations, distances from servers etc
 from SimulationResult import SimulationResult
 
-# ----------------- CONSTANTS ------------------
-#moved all to constants.py
-# ----------------------------------------------
-
 
 """
 Kate recap notes (can delete)

@@ -14,3 +14,4 @@ class SimulationResult:
         self.num_rebuffer_events = num_rebuffer_events
         self.carbon_emitted = carbon_emitted
         self.total_cost = total_cost
+        # self.method_label = method_label
