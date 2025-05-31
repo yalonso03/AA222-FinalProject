@@ -70,8 +70,12 @@ class NetworkSimulator:
                 self._n_rebuffers += 1
                 self._total_rebuffer_time += rebuffer_time
                 self._num_sec_in_buffer = 0.0  # empty buffer while waiting
-            self._num_sec_in_buffer = min(self._num_sec_in_buffer + constants.N_SECONDS_PER_SEGMENT, constants.BUFFER_CAPACITY)
-            self._carbon_emitted += constants.LOCATIONS_CO2_DICT[server_loc] * segment_size_MB  #increment total co2 emitted
+            self._num_sec_in_buffer = min(self._num_sec_in_buffer + constants.N_SECONDS_PER_SEGMENT, constants.BUFFER_CAPACITY) # we treat buffer as seconds
+
+            # todo might need to return to this if we want the policies to consider transmission time, too
+            total_carbon_emitted_in_choice = (constants.SERVER_EMISSION_GRAMS_PER_MB[server_loc] * constants.SERVER_EMISSIONS_ENERGY_CONTRIBUTION) + (constants.TRANSMISSION_TIME_DICT[server_loc] * constants.TRANSMISSION_TIME_ENERGY_CONTRIBUTION)
+            # self._carbon_emitted += constants.LOCATIONS_CO2_DICT[server_loc] * segment_size_MB  #increment total co2 emitted
+            self._carbon_emitted += total_carbon_emitted_in_choice
             self._total_cost += segment_size_MB * constants.COST_PER_MB  #increment total cost
             self._quality_history.append(quality)  # keep track of previous qualities
             self._prev_quality_level = quality

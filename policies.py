@@ -25,7 +25,7 @@ Args for each policy:
 # Chooses random quality levels and a random server location
 def random_policy(cur_bandwidth, num_sec_in_buffer, prev_quality_level, n_rebuffers):
     next_quality_level = random.choice(list(constants.QUALITY_LEVELS.values()))  # choose a random quality level 
-    next_loc = random.choice(list(constants.LOCATIONS_CO2_DICT.keys()))   # choose a random server location
+    next_loc = random.choice(list(constants.SERVER_EMISSION_GRAMS_PER_MB.keys()))   # choose a random server location
     return next_quality_level, next_loc
 
 
@@ -58,7 +58,7 @@ def simple_quality_policy(cur_bandwidth, num_sec_in_buffer, prev_quality_level, 
 
     
     next_quality_level = best_qual
-    next_loc = random.choice(list(constants.LOCATIONS_CO2_DICT.keys()))   # choose a random server location
+    next_loc = random.choice(list(constants.SERVER_EMISSION_GRAMS_PER_MB.keys()))   # choose a random server location
     return next_quality_level, next_loc   
 
 
@@ -68,7 +68,7 @@ def always_max_quality(cur_bandwidth, num_sec_in_buffer, prev_quality_level, n_r
         This could show that we shouldn't always maximize quality -- there will certainly be rebuffers
     """
     next_quality_level = max(list(constants.QUALITY_LEVELS.values())) # choose the maximum quality level each time
-    next_loc = random.choice(list(constants.LOCATIONS_CO2_DICT.keys()))   # choose a random server location
+    next_loc = random.choice(list(constants.SERVER_EMISSION_GRAMS_PER_MB.keys()))   # choose a random server location
     return next_quality_level, next_loc
 
 
@@ -80,7 +80,7 @@ def always_min_quality(cur_bandwidth, num_sec_in_buffer, prev_quality_level, n_r
 
     """
     next_quality_level = min(list(constants.QUALITY_LEVELS.values())) # choose the minimum quality level each time
-    next_loc = random.choice(list(constants.LOCATIONS_CO2_DICT.keys()))   # choose a random server location
+    next_loc = random.choice(list(constants.SERVER_EMISSION_GRAMS_PER_MB.keys()))   # choose a random server location
     return next_quality_level, next_loc
 
 
@@ -134,7 +134,7 @@ def cross_entropy_policy(cur_bandwidth, num_sec_in_buffer, prev_quality_level, n
     # this will be 6-ish to start out
     candidate_points = []
     for quality in list(constants.QUALITY_LEVELS.values()):
-        for loc in list(constants.LOCATIONS_CO2_DICT.keys()):
+        for loc in list(constants.SERVER_EMISSION_GRAMS_PER_MB.keys()):
             candidate_points.append((quality,loc))
 
     # start out with uniform probabilities, then all of the weights add to one with the division 
@@ -164,7 +164,7 @@ def cross_entropy_policy(cur_bandwidth, num_sec_in_buffer, prev_quality_level, n
             score = ( # we want the overall score to be minimized 
                 -w_quality * curr_quality +         # maximize quality (so we make this negative)
                 +w_rebuffer * jitter_risk +         # minimize jitter (so we make this positive)
-                +w_co2 * constants.LOCATIONS_CO2_DICT[curr_loc]  # minimize carbon (so we make this positive)
+                +w_co2 * constants.SERVER_EMISSION_GRAMS_PER_MB[curr_loc]  # minimize carbon (so we make this positive)
             )
             scored.append(score)
 
