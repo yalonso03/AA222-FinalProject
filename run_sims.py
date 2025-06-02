@@ -236,7 +236,7 @@ def plot_four_objective_radar(results, labels):
     ax.legend(loc='upper right', bbox_to_anchor=(1.3, 1.1))
 
     plt.tight_layout()
-    plt.show()
+    #plt.show()
     plt.savefig("four_obj_radar.png")
 
 def create_plots(simulation_results, labels, num_segments):
